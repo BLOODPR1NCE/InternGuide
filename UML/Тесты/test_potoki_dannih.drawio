@@ -1,0 +1,77 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0" version="27.1.4">
+  <diagram name="Page-1" id="929967ad-93f9-6ef4-fab6-5d389245f69c">
+    <mxGraphModel dx="914" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" style=";html=1;" />
+        <mxCell id="1" style=";html=1;" parent="0" />
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.017;exitY=0.431;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="NDsEM3CqR2JJzmxSmEk8-2" target="NDsEM3CqR2JJzmxSmEk8-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="419" as="sourcePoint" />
+            <mxPoint x="460" y="404.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="602" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-19" value="Результат прохождения теста" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="NDsEM3CqR2JJzmxSmEk8-18" vertex="1" connectable="0">
+          <mxGeometry x="0.2082" y="2" relative="1" as="geometry">
+            <mxPoint x="4" y="23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-2" value="&lt;div&gt;1.1&lt;/div&gt;&lt;div&gt;_______________&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Прохождение тестов&lt;/div&gt;&lt;div&gt;_______________&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;Система стажерской программы" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="340" width="150" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="NDsEM3CqR2JJzmxSmEk8-3" target="NDsEM3CqR2JJzmxSmEk8-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-17" value="Ввод ответа на вопрос теста" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="NDsEM3CqR2JJzmxSmEk8-16" vertex="1" connectable="0">
+          <mxGeometry x="-0.1801" y="1" relative="1" as="geometry">
+            <mxPoint x="9" y="-44" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-3" value="Пользователь" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="340" y="360" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-6" value="" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="560" y="570" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-7" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=inherit;fontSize=10;" parent="NDsEM3CqR2JJzmxSmEk8-6" vertex="1">
+          <mxGeometry width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-8" value="D1" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;pointerEvents=1;strokeColor=inherit;fontSize=12;" parent="NDsEM3CqR2JJzmxSmEk8-7" vertex="1">
+          <mxGeometry width="48" height="30" as="geometry">
+            <mxRectangle width="48" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-9" value="База данных вопросов" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;strokeColor=inherit;fontSize=12;" parent="NDsEM3CqR2JJzmxSmEk8-7" vertex="1">
+          <mxGeometry x="48" width="172" height="30" as="geometry">
+            <mxRectangle width="172" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.356;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="NDsEM3CqR2JJzmxSmEk8-2" target="NDsEM3CqR2JJzmxSmEk8-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="638" y="545" />
+              <mxPoint x="638" y="545" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-25" value="Запрос информации&lt;div&gt;о вопросе&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="NDsEM3CqR2JJzmxSmEk8-23" vertex="1" connectable="0">
+          <mxGeometry x="-0.1131" y="-1" relative="1" as="geometry">
+            <mxPoint x="-65" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.686;entryY=-0.033;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=classic;startFill=1;endArrow=none;" parent="1" target="NDsEM3CqR2JJzmxSmEk8-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="711" y="520" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NDsEM3CqR2JJzmxSmEk8-26" value="Правильный ответ" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="NDsEM3CqR2JJzmxSmEk8-24" vertex="1" connectable="0">
+          <mxGeometry x="-0.0845" y="-1" relative="1" as="geometry">
+            <mxPoint x="71" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

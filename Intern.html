@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intern Guide | Ингосстрах</title>
+    <style>
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004d99;
+            --secondary: #e6f2ff;
+            --accent: #ff6600;
+            --text: #333333;
+            --light-gray: #f5f5f5;
+            --gray: #e0e0e0;
+            --dark-gray: #757575;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            color: var(--text);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        nav ul li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e65c00;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            background-color: var(--secondary);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon i {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        /* Guides Section */
+        .guides {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
+
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .guide-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .guide-image {
+            height: 160px;
+            background-color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+        }
+
+        .guide-content {
+            padding: 20px;
+        }
+
+        .guide-category {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .guide-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .guide-card p {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .guide-meta {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+
+        .guide-meta span {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .guide-meta i {
+            margin-right: 5px;
+        }
+
+        /* Tests Section */
+        .tests {
+            padding: 60px 0;
+        }
+
+        .tests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .test-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        .test-card h3 {
+            margin-bottom: 15px;
+        }
+
+        .test-card p {
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            nav ul {
+                margin-top: 15px;
+            }
+
+            nav ul li {
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                display: block;
+                margin: 10px auto;
+                max-width: 200px;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://www.ingos.ru/local/templates/ingos_new/images/logo.svg" alt="Ingosstrakh Logo">
+                <div class="logo-text">Intern <span>Guide</span></div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Главная</a></li>
+                    <li><a href="#">Путеводители</a></li>
+                    <li><a href="#">Тесты</a></li>
+                    <li><a href="#">Статьи</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Добро пожаловать в Ингосстрах</h1>
+            <p>Ваш гид по стажировке в компании. Здесь вы найдёте всю необходимую информацию, учебные материалы и тесты для успешного старта карьеры.</p>
+            <a href="#" class="btn">Начать обучение</a>
+            <a href="#" class="btn btn-outline">О компании</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Возможности платформы</h2>
+                <p>Все инструменты для эффективного обучения и адаптации в компании</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Путеводители</h3>
+                    <p>Подробные руководства по всем аспектам работы в компании, от корпоративной культуры до рабочих процессов.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>Тесты и проверки</h3>
+                    <p>Проверьте свои знания с помощью интерактивных тестов и получите рекомендации по улучшению результатов.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Мониторинг прогресса</h3>
+                    <p>Отслеживайте свой прогресс в обучении и получайте обратную связь от кураторов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="guides">
+        <div class="container">
+            <div class="section-title">
+                <h2>Популярные путеводители</h2>
+                <p>Самые полезные материалы для новых стажёров</p>
+            </div>
+            <div class="guides-grid">
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <i class="fas fa-landmark fa-3x"></i>
+                    </div>
+                    <div class="guide-content">
+                        <span class="guide-category">О компании</span>
+                        <h3>Знакомство с Ингосстрах</h3>
+                        <p>История компании, миссия и ценности, организационная структура.</p>
+                        <div class="guide-meta">
+                            <span><i class="far fa-clock"></i> 15 мин</span>
+                            <span><i class="far fa-eye"></i> 87% завершили</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <i class="fas fa-user-tie fa-3x"></i>
+                    </div>
+                    <div class="guide-content">
+                        <span class="guide-category">Корпоративная культура</span>
+                        <h3>Этика и стандарты поведения</h3>
+                        <p>Как вести себя в офисе, общаться с коллегами и клиентами.</p>
+                        <div class="guide-meta">
+                            <span><i class="far fa-clock"></i> 20 мин</span>
+                            <span><i class="far fa-eye"></i> 92% завершили</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <i class="fas fa-tasks fa-3x"></i>
+                    </div>
+                    <div class="guide-content">
+                        <span class="guide-category">Рабочие процессы</span>
+                        <h3>Основные IT-системы компании</h3>
+                        <p>Как работать с корпоративными системами и инструментами.</p>
+                        <div class="guide-meta">
+                            <span><i class="far fa-clock"></i> 30 мин</span>
+                            <span><i class="far fa-eye"></i> 78% завершили</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tests">
+        <div class="container">
+            <div class="section-title">
+                <h2>Тесты и проверки знаний</h2>
+                <p>Проверьте своё понимание материалов и получите рекомендации</p>
+            </div>
+            <div class="tests-grid">
+                <div class="test-card">
+                    <h3>Введение в страхование</h3>
+                    <p>Основные понятия и принципы страхования, виды страховых продуктов.</p>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Ваш прогресс</span>
+                            <span>45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn">Продолжить</a>
+                </div>
+                <div class="test-card">
+                    <h3>Продукты Ингосстрах</h3>
+                    <p>Основные страховые продукты компании и их особенности.</p>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Ваш прогресс</span>
+                            <span>20%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn">Начать</a>
+                </div>
+                <div class="test-card">
+                    <h3>Корпоративные стандарты</h3>
+                    <p>Проверка знаний корпоративной культуры и этики.</p>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Ваш прогресс</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn">Повторить</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>Intern Guide</h3>
+                    <p>Платформа для обучения и адаптации стажёров в компании Ингосстрах.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Разделы</h3>
+                    <ul>
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#">Путеводители</a></li>
+                        <li><a href="#">Тесты</a></li>
+                        <li><a href="#">Статьи</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Ресурсы</h3>
+                    <ul>
+                        <li><a href="#">Корпоративный портал</a></li>
+                        <li><a href="#">HR-отдел</a></li>
+                        <li><a href="#">База знаний</a></li>
+                        <li><a href="#">Частые вопросы</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-envelope"></i> interns@ingos.ru</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +7 (495) 123-45-67</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Москва, ул. Покровка, 42</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ингосстрах. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0" version="27.1.4">
+  <diagram name="Страница — 1" id="VITqMJHGawG_AV4IwLpY">
+    <mxGraphModel dx="1314" dy="420" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="oMOa3SXm_goFEWfaKYYf-7" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;endArrow=none;startFill=0;" parent="1" source="JWygc2-lEyXVkWZMa3_q-1" target="oMOa3SXm_goFEWfaKYYf-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JWygc2-lEyXVkWZMa3_q-1" value="Пользователь" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="653" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="oMOa3SXm_goFEWfaKYYf-3" value=":Система стажерской программы" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="256" y="653" width="124" height="57" as="geometry" />
+        </mxCell>
+        <mxCell id="oMOa3SXm_goFEWfaKYYf-9" value="1. Ввести новые личные данные" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;edgeStyle=none;startSize=8;endSize=8;" parent="1" edge="1">
+          <mxGeometry x="-0.0036" y="19" width="80" relative="1" as="geometry">
+            <mxPoint x="100" y="660" as="sourcePoint" />
+            <mxPoint x="200" y="660" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oMOa3SXm_goFEWfaKYYf-13" value="&lt;div&gt;4. Получить обновленные данные&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;edgeStyle=none;startSize=8;endSize=8;" parent="1" edge="1">
+          <mxGeometry y="40" width="80" relative="1" as="geometry">
+            <mxPoint x="200" y="700" as="sourcePoint" />
+            <mxPoint x="100" y="700" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jDP7XRf8knhhoj4baCWg-1" value=":База данных пользователей" style="html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="263" y="850" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="jDP7XRf8knhhoj4baCWg-2" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;endArrow=none;startFill=0;" parent="1" source="jDP7XRf8knhhoj4baCWg-1" target="oMOa3SXm_goFEWfaKYYf-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="30" y="693" as="sourcePoint" />
+            <mxPoint x="266" y="692" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jDP7XRf8knhhoj4baCWg-3" value="2. Проверить данные на&lt;div&gt;корректность&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;edgeStyle=none;startSize=8;endSize=8;" parent="1" edge="1">
+          <mxGeometry x="0.4" y="-80" width="80" relative="1" as="geometry">
+            <mxPoint x="300" y="730" as="sourcePoint" />
+            <mxPoint x="300" y="830" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jDP7XRf8knhhoj4baCWg-4" value="3. Обновить и вернуть&amp;nbsp;&lt;div&gt;информацию&amp;nbsp;&lt;span style=&quot;background-color: light-dark(#ffffff, var(--ge-dark-color, #121212)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;о пользователе&lt;/span&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=12;fontColor=default;labelBackgroundColor=default;edgeStyle=none;startSize=8;endSize=8;" parent="1" edge="1">
+          <mxGeometry x="-0.6" y="-100" width="80" relative="1" as="geometry">
+            <mxPoint x="340" y="830" as="sourcePoint" />
+            <mxPoint x="340" y="730" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
