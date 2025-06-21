@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Просмотр материала | Intern Guide</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/materials.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://www.ingos.ru/local/templates/ingos_new/images/logo.svg" alt="Ingosstrakh Logo">
+                <div class="logo-text">Intern <span>Guide</span></div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Главная</a></li>
+                    <li><a href="index.html">Материалы</a></li>
+                    <li><a href="../tests/index.html">Тесты</a></li>
+                    <li><a href="../progress/index.html">Прогресс</a></li>
+                    <li><a href="#" id="logout">Выйти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="material-view">
+            <button class="btn btn-back" onclick="window.history.back()">
+                <i class="fas fa-arrow-left"></i> Назад
+            </button>
+            
+            <div id="materialContent">
+                <!-- Материал будет загружен через JS -->
+            </div>
+            
+            <div class="material-complete">
+                <button id="completeMaterialBtn" class="btn btn-primary">
+                    Отметить как пройденное
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>Intern Guide</h3>
+                    <p>Платформа для обучения и адаптации стажёров в компании Ингосстрах.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Разделы</h3>
+                    <ul>
+                        <li><a href="../../index.html">Главная</a></li>
+                        <li><a href="index.html">Материалы</a></li>
+                        <li><a href="../tests/index.html">Тесты</a></li>
+                        <li><a href="../progress/index.html">Прогресс</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-envelope"></i> interns@ingos.ru</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +7 (495) 123-45-67</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Москва, ул. Покровка, 42</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ингосстрах. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/auth.js"></script>
+    <script src="../../assets/js/materials.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать тест | Intern Guide</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/tests.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://www.ingos.ru/local/templates/ingos_new/images/logo.svg" alt="Ingosstrakh Logo">
+                <div class="logo-text">Intern <span>Guide</span></div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Главная</a></li>
+                    <li><a href="../materials/index.html">Материалы</a></li>
+                    <li><a href="index.html">Тесты</a></li>
+                    <li><a href="../progress/index.html">Прогресс</a></li>
+                    <li><a href="#" id="logout">Выйти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="test-form">
+            <h1>Редактировать тест</h1>
+            
+            <form id="editTestForm">
+                <div class="form-group">
+                    <label for="title">Название теста</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Описание теста</label>
+                    <textarea id="description" name="description" rows="3"></textarea>
+                </div>
+                
+                <div id="questionsContainer">
+                    <!-- Вопросы будут загружены через JS -->
+                </div>
+                
+                <button type="button" id="addQuestionBtn" class="btn btn-outline">
+                    <i class="fas fa-plus"></i> Добавить вопрос
+                </button>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="window.history.back()">
+                        Отмена
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Сохранить изменения
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>Intern Guide</h3>
+                    <p>Платформа для обучения и адаптации стажёров в компании Ингосстрах.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Разделы</h3>
+                    <ul>
+                        <li><a href="../../index.html">Главная</a></li>
+                        <li><a href="../materials/index.html">Материалы</a></li>
+                        <li><a href="index.html">Тесты</a></li>
+                        <li><a href="../progress/index.html">Прогресс</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-envelope"></i> interns@ingos.ru</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +7 (495) 123-45-67</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Москва, ул. Покровка, 42</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ингосстрах. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/auth.js"></script>
+    <script src="../../assets/js/tests.js"></script>
+</body>
+</html>

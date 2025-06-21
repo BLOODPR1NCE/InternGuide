@@ -1,0 +1,63 @@
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <img src="/assets/images/logo.svg" alt="Ingosstrakh Logo">
+            <div class="logo-text">Intern <span>Guide</span></div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/" class="{{ 'active' if active_page == 'home' }}">Главная</a></li>
+                <li><a href="/materials" class="{{ 'active' if active_page == 'materials' }}">Материалы</a></li>
+                <li><a href="/tests" class="{{ 'active' if active_page == 'tests' }}">Тесты</a></li>
+                <li><a href="/progress" class="{{ 'active' if active_page == 'progress' }}">Прогресс</a></li>
+            </ul>
+        </nav>
+        <div class="user-menu">
+            <span class="user-name" id="user-name">Гость</span>
+            <i class="fas fa-user-circle"></i>
+            <div class="dropdown-menu">
+                <a href="/profile">Профиль</a>
+                <a href="#" id="logout-btn">Выйти</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Проверка аутентификации
+    const token = localStorage.getItem('token');
+    const userNameElement = document.getElementById('user-name');
+    const logoutBtn = document.getElementById('logout-btn');
+    
+    if (token) {
+        // Получаем данные пользователя
+        fetch('/api/users/me', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            userNameElement.textContent = `${data.name} ${data.surname}`;
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки данных пользователя:', error);
+        });
+        
+        // Обработка выхода
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                window.location.href = '/auth/login';
+            });
+        }
+    } else {
+        userNameElement.textContent = 'Гость';
+        if (logoutBtn) {
+            logoutBtn.style.display = 'none';
+        }
+    }
+});
+</script>
