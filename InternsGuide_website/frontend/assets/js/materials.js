@@ -1,7 +1,9 @@
 
+
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
     loadMaterials();
+    
     
     // Обработчики для страницы просмотра материала
     if (document.getElementById('materialContent')) {
@@ -13,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setupMaterialForm();
     }
 });
+
 
 function checkAuth() {
     const token = localStorage.getItem('token');
@@ -27,12 +30,20 @@ function checkAuth() {
 
 function loadMaterials() {
     authFetch('/materials')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => {
+                    throw new Error(err.message || `Server responded with ${response.status}`);
+                });
+            }
+            return response.json();
+        })
         .then(data => {
+            if (!data || !Array.isArray(data.materials)) {
+                throw new Error('Invalid data format from server');
+            }
             const materialsContainer = document.getElementById('materialsContainer');
             if (!materialsContainer) return;
-            
-            materialsContainer.innerHTML = '';
             
             if (data.materials.length === 0) {
                 materialsContainer.innerHTML = `
@@ -72,7 +83,18 @@ function loadMaterials() {
         })
         .catch(error => {
             console.error('Error loading materials:', error);
-            if (error === 'No token found') {
+            const materialsContainer = document.getElementById('materialsContainer');
+            if (materialsContainer) {
+                materialsContainer.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Ошибка загрузки материалов</h3>
+                        <p>${error.message || 'Попробуйте позже'}</p>
+                    </div>
+                `;
+            }
+            
+            if (error.message.includes('authenticated') || error.message.includes('401')) {
                 logout();
             }
         });
@@ -88,7 +110,12 @@ function loadMaterialContent() {
     }
     
     authFetch(`/materials/${materialId}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             const material = data.material;
             const materialContent = document.getElementById('materialContent');

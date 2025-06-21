@@ -42,6 +42,7 @@ def create_database():
         creator_id INTEGER NOT NULL,
         description TEXT,
         max_score INTEGER NOT NULL,
+        creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (creator_id) REFERENCES users(user_id)
     )
     ''')

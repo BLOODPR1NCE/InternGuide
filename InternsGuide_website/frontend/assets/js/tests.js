@@ -33,9 +33,23 @@ function checkAuth() {
 }
 
 function loadTests() {
+    const testsContainer = document.getElementById('testsContainer');
+    if (testsContainer) {
+        testsContainer.innerHTML = '<div class="loading">Загрузка тестов...</div>';
+    }
     authFetch('/tests')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => {
+                    throw new Error(err.message || `Ошибка сервера: ${response.status}`);
+                });
+            }
+            return response.json();
+        })
         .then(data => {
+            if (!data || !data.tests) {
+                throw new Error('Invalid data format');
+            }
             const testsContainer = document.getElementById('testsContainer');
             testsContainer.innerHTML = '';
             
@@ -83,7 +97,20 @@ function loadTests() {
         })
         .catch(error => {
             console.error('Error loading tests:', error);
-            if (error === 'No token found') {
+            if (testsContainer) {
+                testsContainer.innerHTML = `
+                    <div class="error-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Ошибка загрузки тестов</h3>
+                        <p>${error.message || 'Попробуйте позже'}</p>
+                        <button onclick="loadTests()" class="btn btn-retry">
+                            Попробовать снова
+                        </button>
+                    </div>
+                `;
+            }
+            
+            if (error.message.includes('authenticated')) {
                 logout();
             }
         });
@@ -99,7 +126,12 @@ function loadTestForTaking() {
     }
     
     authFetch(`/tests/${testId}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             currentTest = data.test;
             userAnswers = {};

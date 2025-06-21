@@ -9,9 +9,10 @@ from flask_cors import CORS
 app = create_app()
 CORS(app, resources={
     r"/api/*": {
-        "origins": ["http://localhost:*", "file://*"],
-        "methods": ["GET", "POST", "PUT", "DELETE"],
-        "allow_headers": ["Content-Type", "Authorization"]
+        "origins": ["http://127.0.0.1:5500", "http://localhost:5500"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
     }
 })
 
@@ -21,14 +22,6 @@ app.register_blueprint(materials_bp, url_prefix='/api')
 app.register_blueprint(progress_bp, url_prefix='/api')
 app.register_blueprint(tests_bp, url_prefix='/api')
 app.register_blueprint(users_bp, url_prefix='/api')
-
-# Создание таблиц при первом запуске
-with app.app_context():
-    db.create_all()
-
-@app.route('/')
-def index():
-    return 'Intern Guide API'
 
 if __name__ == '__main__':
     app.run(debug=True)

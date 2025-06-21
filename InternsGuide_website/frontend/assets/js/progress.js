@@ -33,10 +33,33 @@ function checkAuth() {
 
 function loadProgress() {
     const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+        logout();
+        return;
+    }
+
+    const materialsContainer = document.getElementById('materialsProgressContainer');
+    const testsContainer = document.getElementById('testsProgressContainer');
+    [materialsContainer, testsContainer].forEach(container => {
+        if (container) {
+            container.innerHTML = '<div class="loading">Загрузка прогресса...</div>';
+        }
+    });
+
     
-    fetch('/api/progress')
-        .then(response => response.json())
+    authFetch('/progress')
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => {
+                    throw new Error(err.message || `Ошибка сервера: ${response.status}`);
+                });
+            }
+            return response.json();
+        })
         .then(data => {
+            if (!data || !data.progress) {
+                throw new Error('Invalid data format');
+            }
             const materialsContainer = document.getElementById('materialsProgressContainer');
             const testsContainer = document.getElementById('testsProgressContainer');
             
@@ -113,6 +136,21 @@ function loadProgress() {
         })
         .catch(error => {
             console.error('Error loading progress:', error);
+            [materialsContainer, testsContainer].forEach(container => {
+                if (container) {
+                    container.innerHTML = `
+                        <div class="error-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Ошибка загрузки прогресса</h3>
+                            <p>${error.message || 'Попробуйте позже'}</p>
+                        </div>
+                    `;
+                }
+            });
+            
+            if (error.message.includes('authenticated')) {
+                logout();
+            }
         });
 }
 

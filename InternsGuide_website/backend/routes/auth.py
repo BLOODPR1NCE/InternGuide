@@ -9,13 +9,6 @@ from backend.config import Config
 
 auth_bp = Blueprint('auth', __name__)
 
-@auth_bp.after_request
-def after_request(response):
-    """Добавляем CORS заголовки"""
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
-    return response
 
 def token_required(f):
     @wraps(f)
@@ -80,40 +73,33 @@ def register():
         db.session.rollback()
         return jsonify({'message': f'Ошибка регистрации: {str(e)}'}), 500
 
-@auth_bp.route('/login', methods=['POST'])
+@auth_bp.route('/login', methods=['POST', 'OPTIONS'])
 def login():
-    try:
-        data = request.get_json()
-        
-        if not data:
-            return jsonify({'message': 'Необходимо передать данные'}), 400
-            
-        if not data.get('login') or not data.get('password'):
-            return jsonify({'message': 'Требуется логин и пароль'}), 400
-        
-        user = User.query.filter_by(login=data['login']).first()
-        
-        if not user:
-            return jsonify({'message': 'Пользователь не найден'}), 404
-            
-        if not check_password_hash(user.password, data['password']):
-            return jsonify({'message': 'Неверный пароль'}), 401
-        
-        token = jwt.encode({
+    if request.method == 'OPTIONS':
+        return jsonify({}), 200
+    
+    data = request.get_json()
+    
+    if not data or not data.get('login') or not data.get('password'):
+        return jsonify({'message': 'Login and password required'}), 400
+    
+    user = User.query.filter_by(login=data['login']).first()
+    
+    if not user or not check_password_hash(user.password, data['password']):
+        return jsonify({'message': 'Invalid credentials'}), 401
+    
+    token = jwt.encode({
+        'user_id': user.user_id,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)
+    }, Config.SECRET_KEY, algorithm="HS256")
+    
+    return jsonify({
+        'token': token,
+        'user': {
             'user_id': user.user_id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24)
-        }, Config.SECRET_KEY, algorithm="HS256")
-        
-        return jsonify({
-            'token': token,
-            'user': {
-                'user_id': user.user_id,
-                'name': user.name,
-                'surname': user.surname,
-                'role': user.role,
-                'login': user.login
-            }
-        }), 200
-        
-    except Exception as e:
-        return jsonify({'message': f'Ошибка входа: {str(e)}'}), 500
+            'name': user.name,
+            'surname': user.surname,
+            'role': user.role,
+            'login': user.login
+        }
+    }), 200
