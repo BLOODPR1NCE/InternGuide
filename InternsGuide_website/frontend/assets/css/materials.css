@@ -123,3 +123,466 @@
     margin-bottom: 20px;
     color: var(--gray);
 }
+
+/* Material View Page */
+.material-view {
+    min-height: calc(100vh - 300px); /* Учитываем высоту header и footer */
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-back {
+    align-self: flex-start;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--light-gray);
+    color: var(--primary);
+}
+
+.btn-back:hover {
+    background-color: var(--gray);
+}
+
+#materialContent {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    flex-grow: 1;
+}
+
+.material-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 20px;
+}
+
+.material-header h2 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.material-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+}
+
+.material-body {
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.material-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    margin: 20px 0;
+}
+
+.material-body h3 {
+    color: var(--primary);
+    margin: 25px 0 15px;
+}
+
+.material-body p {
+    margin-bottom: 15px;
+}
+
+.material-body ul, 
+.material-body ol {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.material-complete {
+    text-align: center;
+    margin-top: auto; /* Прижимаем кнопку к низу */
+}
+
+#completeMaterialBtn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .material-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .material-body {
+        font-size: 1rem;
+    }
+}
+
+.materials-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.materials-filters select {
+    padding: 10px 15px;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    background-color: var(--white);
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.materials-filters select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+.materials-filters input {
+    flex-grow: 1;
+    max-width: 400px;
+    padding: 10px 15px;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.materials-filters input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+/* Анимация загрузки */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    color: var(--dark-gray);
+    grid-column: 1 / -1;
+}
+
+.loading::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--gray);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Добавьте эти стили в materials.css */
+
+/* Breadcrumbs */
+.breadcrumbs {
+    margin: 20px 0;
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+}
+
+.breadcrumbs a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    color: var(--dark-gray);
+    font-weight: 500;
+}
+
+/* Material Form Container */
+.material-form-container {
+    background-color: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 30px;
+    margin-bottom: 50px;
+}
+
+.form-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.form-header h1 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-header p {
+    color: var(--dark-gray);
+    font-size: 0.95rem;
+}
+
+/* Styled Form */
+.styled-form .form-group {
+    margin-bottom: 25px;
+}
+
+.styled-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.styled-form label .required {
+    color: var(--danger);
+    margin-left: 4px;
+}
+
+.styled-form input[type="text"],
+.styled-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.styled-form input[type="text"]:focus,
+.styled-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.styled-form textarea {
+    min-height: 200px;
+    resize: vertical;
+}
+
+/* Select Wrapper */
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    appearance: none;
+    background-color: var(--white);
+    cursor: pointer;
+}
+
+.select-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--dark-gray);
+}
+
+/* Editor Toolbar */
+.editor-toolbar {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.editor-toolbar .format-btn {
+    background-color: var(--light-gray);
+    border: none;
+    border-radius: var(--radius-sm);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--dark);
+    transition: all 0.2s;
+}
+
+.editor-toolbar .format-btn:hover {
+    background-color: var(--gray);
+    color: var(--primary);
+}
+
+/* File Upload */
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.upload-area {
+    border: 2px dashed var(--gray);
+    border-radius: var(--radius);
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.upload-area.highlight {
+    border-color: var(--primary);
+    background-color: rgba(0, 102, 204, 0.05);
+}
+
+.upload-area i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.upload-area p {
+    color: var(--dark-gray);
+    margin-bottom: 0;
+}
+
+.upload-area p span {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.file-preview {
+    margin-top: 15px;
+    text-align: left;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--light-gray);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+}
+
+.file-item i {
+    color: var(--primary);
+    font-size: 1.2rem;
+    min-width: 20px;
+}
+
+.file-item span {
+    flex-grow: 1;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-size {
+    color: var(--dark-gray);
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+.remove-file {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--light-gray);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .material-form-container {
+        padding: 20px;
+    }
+    
+    .form-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+    }
+}
+
+/* materials.css и tests.css */
+.btn-danger {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #cc0000;
+}
+
+.material-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.test-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.role-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.role-trainee {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.role-curator {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+
+.role-admin {
+    background-color: #f3e5f5;
+    color: #8e24aa;
+}
+

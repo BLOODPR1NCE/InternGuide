@@ -266,6 +266,7 @@ footer {
     color: var(--secondary);
 }
 
+
 /* Responsive */
 @media (max-width: 768px) {
     .header-container {
@@ -299,4 +300,61 @@ footer {
     .btn-outline {
         margin-left: 0;
     }
+}
+
+/* Layout Fixes */
+html, body {
+    height: 100%;
+}
+
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+.material-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.test-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+.text-warning {
+    color: #ffc107;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+.btn-outline-warning {
+    color: white;
+    border-color: #ffc107;
+}
+
+.btn-outline-danger {
+    color: white;
+    border-color: #dc3545;
+}
+
+.btn-outline-warning:hover,
+.btn-outline-danger:hover {
+    color: white;
 }

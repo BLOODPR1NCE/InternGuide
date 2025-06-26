@@ -12,57 +12,96 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <img src="https://www.ingos.ru/local/templates/ingos_new/images/logo.svg" alt="Ingosstrakh Logo">
+                <img src="https://www.ph4.ru/DL/LOGO_ICON/i/ingosstrah.gif" alt="Ingosstrakh Logo">
                 <div class="logo-text">Intern <span>Guide</span></div>
             </div>
             <nav>
                 <ul>
                     <li><a href="../../index.html">Главная</a></li>
-                    <li><a href="index.html">Материалы</a></li>
+                    <li><a href="index.html" class="active">Материалы</a></li>
                     <li><a href="../tests/index.html">Тесты</a></li>
                     <li><a href="../progress/index.html">Прогресс</a></li>
-                    <li><a href="#" id="logout">Выйти</a></li>
+                    <li><a href="../dashboard.html">Профиль</a></li>
+                    <li><a href="#" id="logoutBtn">Выйти</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <div class="material-form">
-            <h1>Создать новый материал</h1>
+        <div class="breadcrumbs">
+            <a href="../../index.html">Главная</a> / 
+            <a href="index.html">Материалы</a> / 
+            <span>Создать материал</span>
+        </div>
+        
+        <div class="material-form-container">
+            <div class="form-header">
+                <h1><i class="fas fa-plus-circle"></i> Создать новый материал</h1>
+                <p>Заполните форму ниже, чтобы добавить новый учебный материал для стажёров</p>
+            </div>
             
-            <form id="createMaterialForm">
+            <form id="createMaterialForm" class="styled-form">
                 <div class="form-group">
-                    <label for="title">Название материала</label>
-                    <input type="text" id="title" name="title" required>
+                    <label for="title">
+                        <i class="fas fa-heading"></i> Название материала
+                        <span class="required">*</span>
+                    </label>
+                    <input type="text" id="title" name="title" placeholder="Введите название материала" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="category">Категория</label>
-                    <select id="category" name="category" required>
-                        <option value="">Выберите категорию</option>
-                        <option value="О компании">О компании</option>
-                        <option value="Корпоративная культура">Корпоративная культура</option>
-                        <option value="Рабочие процессы">Рабочие процессы</option>
-                    </select>
+                    <label for="category">
+                        <i class="fas fa-tag"></i> Категория
+                        <span class="required">*</span>
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="category" name="category" required>
+                            <option value="">Выберите категорию</option>
+                            <option value="О компании">О компании</option>
+                            <option value="Корпоративная культура">Корпоративная культура</option>
+                            <option value="Рабочие процессы">Рабочие процессы</option>
+                            <option value="Продукты и услуги">Продукты и услуги</option>
+                            <option value="Политики и процедуры">Политики и процедуры</option>
+                        </select>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="content">Содержание</label>
-                    <textarea id="content" name="content" rows="10" required></textarea>
+                    <label for="content">
+                        <i class="fas fa-align-left"></i> Содержание
+                        <span class="required">*</span>
+                    </label>
+                    <textarea id="content" name="content" rows="10" placeholder="Добавьте содержание материала..." required></textarea>
+                    <div class="editor-toolbar">
+                        <button type="button" class="format-btn" data-command="bold"><i class="fas fa-bold"></i></button>
+                        <button type="button" class="format-btn" data-command="italic"><i class="fas fa-italic"></i></button>
+                        <button type="button" class="format-btn" data-command="insertUnorderedList"><i class="fas fa-list-ul"></i></button>
+                        <button type="button" class="format-btn" data-command="insertOrderedList"><i class="fas fa-list-ol"></i></button>
+                        <button type="button" class="format-btn" data-command="createLink"><i class="fas fa-link"></i></button>
+                        <button type="button" class="format-btn" data-command="insertImage"><i class="fas fa-image"></i></button>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="file">Прикрепить файл (опционально)</label>
-                    <input type="file" id="file" name="file">
+                <div class="form-group file-upload">
+                    <label for="file">
+                        <i class="fas fa-paperclip"></i> Прикрепить файл (опционально)
+                    </label>
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Перетащите файлы сюда или <span>выберите файл</span></p>
+                        <input type="file" id="file" name="file">
+                        <div class="file-preview" id="filePreview"></div>
+                    </div>
                 </div>
                 
                 <div class="form-actions">
                     <button type="button" class="btn btn-outline" onclick="window.history.back()">
-                        Отмена
+                        <i class="fas fa-arrow-left"></i> Отмена
                     </button>
                     <button type="submit" class="btn btn-primary">
-                        Сохранить материал
+                        <i class="fas fa-save"></i> Сохранить материал
                     </button>
                 </div>
             </form>
@@ -83,14 +122,15 @@
                         <li><a href="index.html">Материалы</a></li>
                         <li><a href="../tests/index.html">Тесты</a></li>
                         <li><a href="../progress/index.html">Прогресс</a></li>
+                        <li><a href="../dashboard.html">Профиль</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Контакты</h3>
                     <ul>
-                        <li><a href="#"><i class="fas fa-envelope"></i> interns@ingos.ru</a></li>
-                        <li><a href="#"><i class="fas fa-phone"></i> +7 (495) 123-45-67</a></li>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Москва, ул. Покровка, 42</a></li>
+                        <li><a href="mailto:interns@ingos.ru"><i class="fas fa-envelope"></i> interns@ingos.ru</a></li>
+                        <li><a href="tel:+74951234567"><i class="fas fa-phone"></i> +7 (495) 123-45-67</a></li>
+                        <li><a href="https://maps.google.com/?q=Москва, ул. Покровка, 42" target="_blank"><i class="fas fa-map-marker-alt"></i> Москва, ул. Покровка, 42</a></li>
                     </ul>
                 </div>
             </div>
@@ -102,5 +142,129 @@
 
     <script src="../../assets/js/auth.js"></script>
     <script src="../../assets/js/materials.js"></script>
+    <script>
+        // Простая реализация drag and drop для загрузки файлов
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.querySelector('.file-upload input[type="file"]');
+            const filePreview = document.getElementById('filePreview');
+            
+            // Обработка клика по области загрузки
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            // Обработка drag and drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                uploadArea.classList.add('highlight');
+            }
+            
+            function unhighlight() {
+                uploadArea.classList.remove('highlight');
+            }
+            
+            // Обработка загруженных файлов
+            uploadArea.addEventListener('drop', handleDrop, false);
+            fileInput.addEventListener('change', handleFiles, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles({target: {files: files}});
+            }
+            
+            function handleFiles(e) {
+                const files = e.target.files;
+                if (files.length) {
+                    filePreview.innerHTML = '';
+                    
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const fileElement = document.createElement('div');
+                        fileElement.className = 'file-item';
+                        
+                        const fileIcon = document.createElement('i');
+                        fileIcon.className = getFileIcon(file);
+                        
+                        const fileName = document.createElement('span');
+                        fileName.textContent = file.name;
+                        
+                        const fileSize = document.createElement('span');
+                        fileSize.className = 'file-size';
+                        fileSize.textContent = formatFileSize(file.size);
+                        
+                        const removeBtn = document.createElement('button');
+                        removeBtn.className = 'remove-file';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        removeBtn.addEventListener('click', () => {
+                            fileElement.remove();
+                            fileInput.value = '';
+                        });
+                        
+                        fileElement.appendChild(fileIcon);
+                        fileElement.appendChild(fileName);
+                        fileElement.appendChild(fileSize);
+                        fileElement.appendChild(removeBtn);
+                        filePreview.appendChild(fileElement);
+                    }
+                }
+            }
+            
+            function getFileIcon(file) {
+                const type = file.type.split('/')[0];
+                const extension = file.name.split('.').pop().toLowerCase();
+                
+                if (type === 'image') return 'fas fa-file-image';
+                if (type === 'video') return 'fas fa-file-video';
+                if (type === 'audio') return 'fas fa-file-audio';
+                
+                switch(extension) {
+                    case 'pdf': return 'fas fa-file-pdf';
+                    case 'doc':
+                    case 'docx': return 'fas fa-file-word';
+                    case 'xls':
+                    case 'xlsx': return 'fas fa-file-excel';
+                    case 'ppt':
+                    case 'pptx': return 'fas fa-file-powerpoint';
+                    case 'zip':
+                    case 'rar':
+                    case '7z': return 'fas fa-file-archive';
+                    default: return 'fas fa-file';
+                }
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            // Простая реализация форматирования текста
+            document.querySelectorAll('.format-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const command = this.getAttribute('data-command');
+                    document.execCommand(command, false, null);
+                    document.getElementById('content').focus();
+                });
+            });
+        });
+    </script>
 </body>
 </html>

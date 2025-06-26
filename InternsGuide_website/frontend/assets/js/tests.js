@@ -1,6 +1,14 @@
+const user = JSON.parse(localStorage.getItem('user'));
+
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
-    
+    loadTests();
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(loadTests, 300));
+    }
+
     // Загрузка тестов для списка
     if (document.getElementById('testsContainer')) {
         loadTests();
@@ -10,13 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('testForm')) {
         loadTestForTaking();
     }
-    
-    // Настройка формы создания/редактирования теста
-    if (document.getElementById('createTestForm') || document.getElementById('editTestForm')) {
+
+    if (document.getElementById('editTestForm')) {
         setupTestForm();
     }
+
 });
 
+let allTests = [];
 let currentTest = null;
 let currentQuestionIndex = 0;
 let userAnswers = {};
@@ -33,87 +42,130 @@ function checkAuth() {
 }
 
 function loadTests() {
-    const testsContainer = document.getElementById('testsContainer');
-    if (testsContainer) {
-        testsContainer.innerHTML = '<div class="loading">Загрузка тестов...</div>';
-    }
+    const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+    
     authFetch('/tests')
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => {
-                    throw new Error(err.message || `Ошибка сервера: ${response.status}`);
-                });
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            if (!data || !data.tests) {
-                throw new Error('Invalid data format');
-            }
-            const testsContainer = document.getElementById('testsContainer');
-            testsContainer.innerHTML = '';
+            allTests = data.tests || [];
             
-            if (data.tests.length === 0) {
-                testsContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-question-circle"></i>
-                        <h3>Тесты не найдены</h3>
-                        <p>Попробуйте изменить параметры поиска</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            data.tests.forEach(test => {
-                const testCard = document.createElement('div');
-                testCard.className = 'test-card';
-                testCard.innerHTML = `
-                    <h3>${test.title}</h3>
-                    <p>${test.description || 'Описание отсутствует'}</p>
-                    
-                    <div class="progress-container">
-                        <div class="progress-label">
-                            <span>Вопросов:</span>
-                            <span>${test.question_count}</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="test-actions">
-                        <button class="btn btn-primary" onclick="startTest(${test.test_id})">
-                            Начать тест
-                        </button>
-                    </div>
-                    
-                    <div class="test-author">
-                        Автор: ${test.creator}
-                    </div>
-                `;
-                
-                testsContainer.appendChild(testCard);
+            // Фильтрация тестов
+            const filteredTests = allTests.filter(test => {
+                return test.title.toLowerCase().includes(searchTerm) || 
+                       (test.description && test.description.toLowerCase().includes(searchTerm));
             });
+            
+            renderTests(filteredTests);
         })
         .catch(error => {
             console.error('Error loading tests:', error);
-            if (testsContainer) {
-                testsContainer.innerHTML = `
-                    <div class="error-state">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Ошибка загрузки тестов</h3>
-                        <p>${error.message || 'Попробуйте позже'}</p>
-                        <button onclick="loadTests()" class="btn btn-retry">
-                            Попробовать снова
-                        </button>
-                    </div>
-                `;
-            }
-            
-            if (error.message.includes('authenticated')) {
-                logout();
-            }
+            renderError(error);
         });
+}
+
+function renderTests(tests) {
+    console.log('Текущий пользователь:', JSON.parse(localStorage.getItem('user')));
+    console.log('Тесты:',  tests);
+    const testsContainer = document.getElementById('testsContainer');
+    if (!testsContainer) return;
+    
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) return;
+
+    if (tests.length === 0) {
+        testsContainer.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-question-circle"></i>
+                <h3>Тесты не найдены</h3>
+                <p>Попробуйте изменить параметры поиска</p>
+            </div>
+        `;
+        return;
+    }
+    
+    testsContainer.innerHTML = '';
+    
+    tests.forEach(test => {
+        const isCreator = user && test && (user.user_id == test.creator_id);
+        const isAdmin = user.role === 'admin';
+        const isCurator = user.role === 'curator';
+        const showActions = (isCreator && isCurator) || isAdmin;
+
+        console.log(`Test ${test.test_id}: isCreator=${isCreator}, isCurator=${isCurator}, showActions=${showActions}`);
+        
+        const testCard = document.createElement('div');
+        testCard.className = 'test-card';
+        testCard.innerHTML = `
+            <h3>${test.title}</h3>
+            <p>${test.description || 'Описание отсутствует'}</p>
+            
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Вопросов:</span>
+                    <span>${test.question_count}</span>
+                </div>
+            </div>
+            
+            <div class="test-actions">
+                <button class="btn btn-primary" onclick="startTest(${test.test_id})">
+                    Начать тест
+                </button>
+                <div class="test-actions">
+                ${showActions ? `
+                <button class="btn btn-outline-warning" onclick="event.stopPropagation(); editTest(${test.test_id})">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-outline-danger" onclick="event.stopPropagation(); deleteTest(${test.test_id})">
+                    <i class="fas fa-trash"></i> 
+                </button>
+                ` : ''}
+                </div>
+            </div>
+            
+            <div class="test-author">
+                Автор: ${test.creator || 'Неизвестен'}
+            </div>
+        `;
+        
+        testsContainer.appendChild(testCard);
+    });
+}
+
+// Функция debounce (такая же как в materials.js)
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, wait);
+    };
+}
+
+function editTest(testId) {
+    console.log('Attempting to edit test:', testId);
+    // Открываем в новой вкладке для отладки
+    window.open(`edit.html?id=${testId}`, '_blank');
+    // Или для обычного использования:
+    // window.location.href = `edit.html?id=${testId}`;
+}
+function deleteTest(testId) {
+    if (confirm('Вы уверены, что хотите удалить этот тест?')) {
+        authFetch(`/tests/${testId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Тест успешно удалён');
+                loadTests();
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting test:', error);
+            alert('Ошибка при удалении теста');
+        });
+    }
 }
 
 function loadTestForTaking() {
@@ -201,199 +253,6 @@ function showQuestion(index) {
     });
 }
 
-function setupTestForm() {
-    const form = document.getElementById('createTestForm') || document.getElementById('editTestForm');
-    const questionsContainer = document.getElementById('questionsContainer');
-    const addQuestionBtn = document.getElementById('addQuestionBtn');
-    
-    let questions = [];
-    
-    // Для редактирования загружаем существующие вопросы
-    if (document.getElementById('editTestForm')) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const testId = urlParams.get('id');
-        
-        if (testId) {
-            authFetch(`/tests/${testId}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('title').value = data.test.title;
-                    document.getElementById('description').value = data.test.description || '';
-                    
-                    questions = data.test.questions.map(q => ({
-                        text: q.text,
-                        points: q.points,
-                        options: {
-                            A: q.option_a,
-                            B: q.option_b,
-                            C: q.option_c || '',
-                            D: q.option_d || ''
-                        },
-                        correct_option: q.correct_option
-                    }));
-                    
-                    renderQuestions();
-                });
-        }
-    }
-    
-    addQuestionBtn.addEventListener('click', function() {
-        questions.push({
-            text: '',
-            points: 1,
-            options: {
-                A: '',
-                B: '',
-                C: '',
-                D: ''
-            },
-            correct_option: 'A'
-        });
-        
-        renderQuestions();
-    });
-    
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const title = document.getElementById('title').value;
-        const description = document.getElementById('description').value;
-        
-        // Проверяем, что все вопросы заполнены
-        const isValid = questions.every((q, i) => {
-            const questionEl = document.getElementById(`question-${i}`);
-            
-            q.text = questionEl.querySelector('.question-text').value;
-            q.points = parseInt(questionEl.querySelector('.question-points').value) || 1;
-            
-            q.options.A = questionEl.querySelector('.option-a').value;
-            q.options.B = questionEl.querySelector('.option-b').value;
-            q.options.C = questionEl.querySelector('.option-c').value;
-            q.options.D = questionEl.querySelector('.option-d').value;
-            
-            const selectedOption = questionEl.querySelector('input[name^="correct-option"]:checked');
-            q.correct_option = selectedOption ? selectedOption.value : 'A';
-            
-            return q.text && q.options.A && q.options.B;
-        });
-        
-        if (!isValid) {
-            alert('Заполните все обязательные поля в вопросах (текст вопроса и хотя бы 2 варианта ответа)');
-            return;
-        }
-        
-        const testData = {
-            title,
-            description,
-            questions
-        };
-        
-        const url = form.id === 'createTestForm' ? '/tests' : `/tests/${new URLSearchParams(window.location.search).get('id')}`;
-        const method = form.id === 'createTestForm' ? 'POST' : 'PUT';
-        
-        authFetch(url, {
-            method,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(testData)
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('Тест успешно сохранён!');
-                window.location.href = 'index.html';
-            }
-        })
-        .catch(error => {
-            console.error('Error saving test:', error);
-            alert('Ошибка при сохранении теста');
-        });
-    });
-    
-    function renderQuestions() {
-        questionsContainer.innerHTML = '';
-        
-        questions.forEach((question, index) => {
-            const questionEl = document.createElement('div');
-            questionEl.className = 'question-form';
-            questionEl.id = `question-${index}`;
-            
-            questionEl.innerHTML = `
-                <div class="question-header">
-                    <h4>Вопрос ${index + 1}</h4>
-                    <button type="button" class="btn-icon delete-question" data-index="${index}">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-                
-                <div class="form-group">
-                    <label>Текст вопроса</label>
-                    <textarea class="question-text" required>${question.text}</textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label>Баллы за вопрос</label>
-                    <input type="number" class="question-points" min="1" value="${question.points}" required>
-                </div>
-                
-                <div class="options-form">
-                    <div class="form-group">
-                        <label>Вариант A</label>
-                        <input type="text" class="option-a" value="${question.options.A}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Вариант B</label>
-                        <input type="text" class="option-b" value="${question.options.B}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Вариант C (опционально)</label>
-                        <input type="text" class="option-c" value="${question.options.C || ''}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Вариант D (опционально)</label>
-                        <input type="text" class="option-d" value="${question.options.D || ''}">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Правильный вариант</label>
-                    <div class="correct-options">
-                        ${['A', 'B', 'C', 'D'].map(opt => `
-                            <label>
-                                <input type="radio" name="correct-option-${index}" 
-                                       value="${opt}" ${question.correct_option === opt ? 'checked' : ''}
-                                       ${!question.options[opt] ? 'disabled' : ''}>
-                                ${opt}
-                            </label>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            
-            questionsContainer.appendChild(questionEl);
-            
-            // Обработчик удаления вопроса
-            questionEl.querySelector('.delete-question').addEventListener('click', function() {
-                questions.splice(index, 1);
-                renderQuestions();
-            });
-            
-            // Обновление доступных правильных вариантов при изменении текста ответов
-            ['a', 'b', 'c', 'd'].forEach(opt => {
-                questionEl.querySelector(`.option-${opt}`).addEventListener('input', function() {
-                    const radio = questionEl.querySelector(`input[name="correct-option-${index}"][value="${opt.toUpperCase()}"]`);
-                    radio.disabled = !this.value;
-                    if (!this.value && radio.checked) {
-                        questionEl.querySelector('input[name="correct-option-${index}"][value="A"]').checked = true;
-                    }
-                });
-            });
-        });
-    }
-}
 
 function startTest(testId) {
     window.location.href = `take.html?id=${testId}`;
@@ -456,6 +315,8 @@ function submitTest(event) {
 window.startTest = startTest;
 window.nextQuestion = nextQuestion;
 window.prevQuestion = prevQuestion;
+window.editTest = editTest;
+window.deleteTest = deleteTest;
 
 // Обработчик для формы теста
 document.getElementById('nextQuestionBtn')?.addEventListener('click', nextQuestion);

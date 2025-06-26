@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная | Intern Guide</title>
-    <link rel="stylesheet" href="../../assets/css/main.css">
-    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="container header-container">
             <div class="logo">
-                <img src="https://www.ingos.ru/local/templates/ingos_new/images/logo.svg" alt="Ingosstrakh Logo">
+                <img src="https://www.ph4.ru/DL/LOGO_ICON/i/ingosstrah.gif" alt="Ingosstrakh Logo">
                 <div class="logo-text">Intern <span>Guide</span></div>
             </div>
             <nav>
                 <ul>
-                    <li><a href="../../index.html">Главная</a></li>
+                    <li><a href="../index.html">Главная</a></li>
                     <li><a href="materials/index.html">Материалы</a></li>
                     <li><a href="tests/index.html">Тесты</a></li>
                     <li><a href="progress/index.html">Прогресс</a></li>
-                    <li><a href="#" id="logout">Выйти</a></li>
+                    <li><a href="dashboard.html">Профиль</a></li>
+                    <li><li><a href="#" id="logoutBtn">Выйти</a></li></li>
                 </ul>
             </nav>
         </div>
@@ -30,6 +31,50 @@
     <main class="container">
         <section class="dashboard">
             <h1 id="userGreeting">Добро пожаловать</h1>
+            
+            <section class="profile-section">
+    <div class="profile-header">
+        <div class="profile-avatar" id="userAvatar">JD</div>
+        <div class="profile-info">
+            <h2 id="userFullName">John Doe</h2>
+            <span class="role-badge" id="userRole">Стажёр</span>
+        </div>
+    </div>
+    
+    <form class="profile-form" id="profileForm">
+        <div class="form-group">
+            <label for="firstName">Имя</label>
+            <input type="text" id="firstName" name="firstName" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="lastName">Фамилия</label>
+            <input type="text" id="lastName" name="lastName" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="login">Логин</label>
+            <input type="text" id="login" name="login" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="role">Роль</label>
+            <input type="text" id="role" name="role" class="readonly-field" readonly>
+        </div>
+        
+        <div class="profile-actions">
+            <button type="button" class="btn btn-edit" id="editBtn">Редактировать</button>
+            <button type="submit" class="btn btn-save" id="saveBtn">Сохранить</button>
+            <button type="button" class="btn btn-cancel" id="cancelBtn">Отмена</button>
+            <button type="button" class="btn btn-delete" id="deleteBtn">Удалить аккаунт</button>
+        </div>
+    </form>
+</section>
             
             <div class="dashboard-cards">
                 <div class="dashboard-card">
@@ -76,7 +121,7 @@
                 <div class="footer-column">
                     <h3>Разделы</h3>
                     <ul>
-                        <li><a href="../../index.html">Главная</a></li>
+                        <li><a href="./index.html">Главная</a></li>
                         <li><a href="materials/index.html">Материалы</a></li>
                         <li><a href="tests/index.html">Тесты</a></li>
                         <li><a href="progress/index.html">Прогресс</a></li>
@@ -92,12 +137,12 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Ингосстрах. Все права защищены.</p>
+                <p>&copy; 2025 Ингосстрах. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
-    <script src="../../assets/js/auth.js"></script>
-    <script src="../../assets/js/dashboard.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
 </body>
 </html>

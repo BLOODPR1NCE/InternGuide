@@ -1,0 +1,330 @@
+/* dashboard.css */
+
+/* Dashboard Section */
+.dashboard {
+    padding: 40px 0;
+}
+
+.dashboard h1 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 30px;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.dashboard-card {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-top: 4px solid var(--primary);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-card h2 {
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 50px); /* учитываем высоту заголовка и отступов */
+}
+
+.card-content p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    flex-grow: 1;
+}
+
+.card-content p span {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Специальные карточки для ролей */
+.curator-only {
+    border-top-color: var(--accent);
+}
+
+.admin-only {
+    border-top-color: #8e44ad;
+}
+
+/* Кнопки в карточках */
+.dashboard-card .btn {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+    padding: 10px 15px;
+}
+
+.dashboard-card .btn-outline {
+    border-color: var(--primary);
+    color: var(--primary);
+    background-color: transparent;
+}
+
+.dashboard-card .btn-outline:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard h1 {
+        font-size: 1.8rem;
+    }
+    
+    .dashboard-card h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Скрытие элементов по ролям (управляется JS) */
+
+
+.user-curator .curator-only,
+.user-admin .admin-only,
+.user-admin .curator-only {
+    display: block;
+}
+
+/* dashboard.css */
+
+/* Dashboard Layout */
+.dashboard {
+    padding: 40px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.dashboard h1 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 30px;
+}
+
+/* Profile Section */
+.profile-section {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    font-size: 2rem;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.profile-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: var(--text);
+}
+
+.profile-info .role-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Profile Form */
+.profile-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark-gray);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.form-group .readonly-field {
+    background-color: var(--light-gray);
+    cursor: not-allowed;
+}
+
+/* Action Buttons */
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray);
+    grid-column: 1 / -1;
+}
+
+.btn-edit {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-save {
+    background-color: #28a745;
+    color: white;
+    display: none;
+}
+
+.btn-cancel {
+    background-color: var(--dark-gray);
+    color: white;
+    display: none;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Role-specific styles */
+.role-admin .role-badge {
+    background-color: #8e44ad;
+}
+
+.role-curator .role-badge {
+    background-color: var(--accent);
+}
+
+/* Dashboard Cards */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.dashboard-card {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-top: 4px solid var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .profile-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Edit Mode */
+.edit-mode .form-group input:not(.readonly-field) {
+    background-color: var(--secondary);
+    border-color: var(--primary);
+}
+
+.edit-mode .btn-edit {
+    display: none;
+}
+
+.edit-mode .btn-save,
+.edit-mode .btn-cancel {
+    display: inline-block;
+}
+
+/* Добавьте в конец файла dashboard.css */
+
+.dashboard-card .card-content p span {
+    font-weight: 600;
+    color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.dashboard-card .card-content p span.updated {
+    animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}

@@ -17,7 +17,8 @@ def get_tests(current_user):
             'creator': f"{test.creator.name} {test.creator.surname}",
             'description': test.description,
             'max_score': test.max_score,
-            'question_count': len(test.questions)
+            'question_count': len(test.questions),
+            'creator_id': test.creator_id
         }
         output.append(test_data)
     
@@ -124,7 +125,6 @@ def update_test(current_user, test_id):
 
 @tests_bp.route('/tests/<int:test_id>', methods=['DELETE'])
 @token_required
-@curator_required
 def delete_test(current_user, test_id):
     test = Test.query.get_or_404(test_id)
     

@@ -1,10 +1,20 @@
-
+const user = JSON.parse(localStorage.getItem('user'));
 
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
     loadMaterials();
     
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(loadMaterials, 300));
+    }
     
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', loadMaterials);
+    }
+
     // Обработчики для страницы просмотра материала
     if (document.getElementById('materialContent')) {
         loadMaterialContent();
@@ -16,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+let allMaterials = [];
 
 function checkAuth() {
     const token = localStorage.getItem('token');
@@ -29,76 +40,143 @@ function checkAuth() {
 }
 
 function loadMaterials() {
+    const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+    const category = document.getElementById('categoryFilter')?.value || '';
+    
     authFetch('/materials')
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => {
-                    throw new Error(err.message || `Server responded with ${response.status}`);
-                });
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            if (!data || !Array.isArray(data.materials)) {
-                throw new Error('Invalid data format from server');
-            }
-            const materialsContainer = document.getElementById('materialsContainer');
-            if (!materialsContainer) return;
+            allMaterials = data.materials || [];
             
-            if (data.materials.length === 0) {
-                materialsContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-book-open"></i>
-                        <h3>Материалы не найдены</h3>
-                        <p>Попробуйте изменить параметры поиска</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            data.materials.forEach(material => {
-                const materialCard = document.createElement('div');
-                materialCard.className = 'material-card';
-                materialCard.innerHTML = `
-                    <div class="material-image">
-                        <i class="fas fa-file-alt fa-3x"></i>
-                    </div>
-                    <div class="material-content">
-                        <span class="material-category">${material.category || 'Без категории'}</span>
-                        <h3>${material.title}</h3>
-                        <p>${material.content?.substring(0, 150) || 'Описание отсутствует'}...</p>
-                        <div class="material-meta">
-                            <span>${new Date(material.upload_date).toLocaleDateString()}</span>
-                            <div class="material-actions">
-                                <button class="btn-icon" onclick="viewMaterial(${material.material_id})">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                materialsContainer.appendChild(materialCard);
+            // Фильтрация материалов
+            const filteredMaterials = allMaterials.filter(material => {
+                const matchesSearch = material.title.toLowerCase().includes(searchTerm) || 
+                                    (material.content && material.content.toLowerCase().includes(searchTerm));
+                const matchesCategory = !category || material.category === category;
+                return matchesSearch && matchesCategory;
             });
+            
+            renderMaterials(filteredMaterials);
         })
         .catch(error => {
             console.error('Error loading materials:', error);
-            const materialsContainer = document.getElementById('materialsContainer');
-            if (materialsContainer) {
-                materialsContainer.innerHTML = `
-                    <div class="error-state">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Ошибка загрузки материалов</h3>
-                        <p>${error.message || 'Попробуйте позже'}</p>
-                    </div>
-                `;
-            }
-            
-            if (error.message.includes('authenticated') || error.message.includes('401')) {
-                logout();
-            }
+            renderError(error);
         });
 }
+
+function renderMaterials(materials) {
+    console.log('Текущий пользователь:', JSON.parse(localStorage.getItem('user')));
+    console.log('Материалы:', materials);
+    
+    const materialsContainer = document.getElementById('materialsContainer');
+    if (!materialsContainer) return;
+    
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) return;
+
+    if (materials.length === 0) {
+        materialsContainer.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-book-open"></i>
+                <h3>Материалы не найдены</h3>
+                <p>Попробуйте изменить параметры поиска</p>
+            </div>
+        `;
+        return;
+    }
+    
+    materialsContainer.innerHTML = '';
+    
+    materials.forEach(material => {
+            const isCreator = user && material && (user.user_id == material.author_id);
+            const isAdmin = user.role === 'admin';
+            const isCurator = user.role === 'curator';
+    
+            // Кураторы могут редактировать только СВОИ материалы, админы - все
+            const showActions = (isCurator && isCreator) || isAdmin;
+
+        console.log('Current user:', user);
+        console.log('Material author_id:', material.author);
+        console.log('Comparison:', user.user_id == material.author_id); 
+        console.log(`Material ${material.material_id}: isCreator=${isCreator}, isCurator=${isCurator}, showActions=${showActions}`);
+        
+        const materialCard = document.createElement('div');
+        materialCard.className = 'material-card';
+        materialCard.innerHTML = `
+            <div class="material-image" style="background-color: ${getCategoryColor(material.category)}">
+                <i class="fas fa-file-alt fa-3x"></i>
+            </div>
+            <div class="material-content">
+                <span class="material-category">${material.category || 'Без категории'}</span>
+                <h3>${material.title}</h3>
+                <p>${material.content?.substring(0, 150) || 'Описание отсутствует'}...</p>
+                <div class="material-meta">
+                    <span>${new Date(material.upload_date).toLocaleDateString()}</span>
+                    <div class="material-actions">
+                        <button class="btn-icon" onclick="viewMaterial(${material.material_id})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        ${showActions ? `
+                        <button class="btn-icon text-warning" onclick="event.stopPropagation(); editMaterial(${material.material_id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon text-danger" onclick="event.stopPropagation(); deleteMaterial(${material.material_id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        materialsContainer.appendChild(materialCard);
+    });
+}
+
+function getCategoryColor(category) {
+    const colors = {
+        'О компании': '#e6f7ff',
+        'Корпоративная культура': '#fff7e6',
+        'Рабочие процессы': '#e6ffed',
+    };
+    return colors[category] || '#f5f5f5';
+}
+
+// Функция для задержки выполнения (debounce)
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, wait);
+    };
+}
+
+function editMaterial(materialId) {
+    console.log('Editing material with ID:', materialId);
+    window.location.href = `edit.html?id=${materialId}`;
+}
+
+function deleteMaterial(materialId) {
+    if (confirm('Вы уверены, что хотите удалить этот материал?')) {
+        authFetch(`/materials/${materialId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Материал успешно удалён');
+                loadMaterials();
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting material:', error);
+            alert('Ошибка при удалении материала');
+        });
+    }
+}
+
 
 function loadMaterialContent() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -139,14 +217,10 @@ function loadMaterialContent() {
             `;
             
             // Показываем кнопку только для стажёров
-            const user = JSON.parse(localStorage.getItem('user'));
-            if (user.role === 'trainee') {
-                document.getElementById('completeMaterialBtn').addEventListener('click', () => {
-                    completeMaterial(materialId);
-                });
-            } else {
-                document.getElementById('completeMaterialBtn').style.display = 'none';
-            }
+
+            document.getElementById('completeMaterialBtn').addEventListener('click', () => {
+                completeMaterial(materialId);
+            });
         })
         .catch(error => {
             console.error('Error loading material:', error);
@@ -218,3 +292,5 @@ function viewMaterial(materialId) {
 
 // Экспортируем функции для использования в HTML
 window.viewMaterial = viewMaterial;
+window.editMaterial = editMaterial;
+window.deleteMaterial = deleteMaterial;

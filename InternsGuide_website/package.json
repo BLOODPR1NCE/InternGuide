@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Platform for interns adaptation in Ingosstrakh",
   "scripts": {
-    "start": "flask run",
-    "init-db": "python database/create_db.py && python database/test_data.py"
+    "start": "flask run"
   },
   "dependencies": {
     "flask": "^2.0.1",

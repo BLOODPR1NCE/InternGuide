@@ -200,3 +200,481 @@
     justify-content: space-between;
     margin-top: 30px;
 }
+
+/* Test List Page */
+.tests-header {
+    padding: 30px 0 20px;
+}
+
+.tests-filters {
+    margin-bottom: 30px;
+}
+
+#testsContainer {
+    min-height: 300px; /* Учитываем высоту header и footer */
+    padding-bottom: 50px;
+}
+
+/* Test Taking Page */
+.test-taking {
+    min-height: calc(100vh - 300px);
+    padding: 30px 0;
+}
+
+#testProgress {
+    margin-bottom: 30px;
+}
+
+.question {
+    margin-bottom: 30px;
+}
+
+.question-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.option {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option:hover {
+    background-color: var(--secondary);
+    border-color: var(--primary);
+}
+
+.option input {
+    margin-right: 12px;
+}
+
+.test-navigation {
+    margin-top: 40px;
+}
+
+/* Test Results */
+.test-results {
+    text-align: center;
+    padding: 30px;
+}
+
+.test-score {
+    font-size: 2rem;
+    color: var(--primary);
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.test-feedback {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .test-navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .test-navigation button {
+        width: 100%;
+    }
+}
+
+.tests-filters {
+    margin-bottom: 25px;
+}
+
+.tests-filters input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.tests-filters input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+/* Стили для кнопки "Попробовать снова" */
+.btn-retry {
+    padding: 8px 16px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-retry:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Добавьте эти стили в tests.css */
+
+/* Breadcrumbs */
+.breadcrumbs {
+    margin: 20px 0;
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+}
+
+.breadcrumbs a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    color: var(--dark-gray);
+    font-weight: 500;
+}
+
+/* Test Form Container */
+.test-form-container {
+    background-color: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 30px;
+    margin-bottom: 50px;
+}
+
+.form-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.form-header h1 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-header p {
+    color: var(--dark-gray);
+    font-size: 0.95rem;
+}
+
+/* Styled Form (может быть вынесен в отдельный файл для повторного использования) */
+.styled-form .form-group {
+    margin-bottom: 25px;
+}
+
+.styled-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.styled-form label .required {
+    color: var(--danger);
+    margin-left: 4px;
+}
+
+.styled-form input[type="text"],
+.styled-form textarea,
+.styled-form input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.styled-form input[type="text"]:focus,
+.styled-form textarea:focus,
+.styled-form input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.styled-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Select Wrapper */
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    appearance: none;
+    background-color: var(--white);
+    cursor: pointer;
+}
+
+.select-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--dark-gray);
+}
+
+/* Questions Container */
+.questions-container {
+    border: 1px dashed var(--gray);
+    border-radius: var(--radius);
+    padding: 20px;
+    min-height: 150px;
+}
+
+.empty-questions {
+    text-align: center;
+    padding: 30px;
+    color: var(--dark-gray);
+}
+
+.empty-questions i {
+    font-size: 2.5rem;
+    color: var(--gray);
+    margin-bottom: 15px;
+}
+
+.empty-questions p {
+    margin-bottom: 20px;
+}
+
+/* Question Card */
+.question-card {
+    background-color: var(--light-gray);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--primary);
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.question-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+}
+
+.delete-question {
+    color: var(--danger);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.delete-question:hover {
+    text-decoration: underline;
+}
+
+/* Options Container */
+.options-container {
+    margin-top: 20px;
+}
+
+.options-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.add-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+/* Options List */
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+}
+
+.option-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.option-correct {
+    min-width: 18px;
+    min-height: 18px;
+    cursor: pointer;
+}
+
+.option-text {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    font-size: 1rem;
+}
+
+.addQuestionBtn {
+    color: black;
+    size: 50px;
+}
+
+.delete-option {
+    color: var(--danger);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--light-gray);
+    color:#000
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .test-form-container {
+        padding: 20px;
+    }
+    
+    .form-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        color: #000;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+        color: #000;
+    }
+    
+    .question-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .options-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .add-option {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.btn-outline {
+    color: #000;
+    background-color: transparent;
+    border: 2px solid var(--white);
+    margin-left: 15px;
+}
+
+.btn-outline:hover {
+    color: darkslategray;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* materials.css и tests.css */
+.btn-danger {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #cc0000;
+}
+
+.material-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.test-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.role-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.role-trainee {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.role-curator {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+
+.role-admin {
+    background-color: #f3e5f5;
+    color: #8e24aa;
+}
+

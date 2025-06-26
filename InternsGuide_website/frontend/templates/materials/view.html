@@ -12,38 +12,42 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <img src="https://www.ingos.ru/local/templates/ingos_new/images/logo.svg" alt="Ingosstrakh Logo">
+                <img src="https://www.ph4.ru/DL/LOGO_ICON/i/ingosstrah.gif" alt="Ingosstrakh Logo">
                 <div class="logo-text">Intern <span>Guide</span></div>
             </div>
             <nav>
                 <ul>
                     <li><a href="../../index.html">Главная</a></li>
-                    <li><a href="index.html">Материалы</a></li>
+                    <li><a href="index.html" class="active">Материалы</a></li>
                     <li><a href="../tests/index.html">Тесты</a></li>
                     <li><a href="../progress/index.html">Прогресс</a></li>
-                    <li><a href="#" id="logout">Выйти</a></li>
+                    <li><a href="../dashboard.html">Профиль</a></li>
+                    <li><li><a href="#" id="logoutBtn">Выйти</a></li></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <div class="material-view">
-            <button class="btn btn-back" onclick="window.history.back()">
-                <i class="fas fa-arrow-left"></i> Назад
-            </button>
+    <div class="material-view">
+        <button class="btn btn-back" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i> Назад
+        </button>
+        
+        <div id="materialContent">
             
-            <div id="materialContent">
-                <!-- Материал будет загружен через JS -->
-            </div>
-            
-            <div class="material-complete">
-                <button id="completeMaterialBtn" class="btn btn-primary">
-                    Отметить как пройденное
-                </button>
+            <div class="material-body" id="materialBody">
+                <!-- Содержание материала будет загружено здесь -->
             </div>
         </div>
-    </main>
+        
+        <div class="material-complete">
+            <button id="completeMaterialBtn" class="btn btn-primary">
+                <i class="fas fa-check-circle"></i> Отметить как пройденное
+            </button>
+        </div>
+    </div>
+</main>
 
     <footer>
         <div class="container">
@@ -59,6 +63,7 @@
                         <li><a href="index.html">Материалы</a></li>
                         <li><a href="../tests/index.html">Тесты</a></li>
                         <li><a href="../progress/index.html">Прогресс</a></li>
+                        <li><a href="../dashboard.html">Профиль</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">

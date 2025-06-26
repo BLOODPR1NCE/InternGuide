@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from backend.models import Material, db
 from backend.utils import token_required, curator_required
 
+
 materials_bp = Blueprint('materials', __name__)
 
 @materials_bp.route('/materials', methods=['GET'])
@@ -16,7 +17,8 @@ def get_materials(current_user):
             'title': material.title,
             'author': f"{material.author.name} {material.author.surname}",
             'category': material.category,
-            'upload_date': material.upload_date.strftime('%Y-%m-%d')
+            'upload_date': material.upload_date.strftime('%Y-%m-%d'),
+            'author_id': material.author_id
         }
         output.append(material_data)
     
@@ -62,21 +64,36 @@ def create_material(current_user):
 @token_required
 @curator_required
 def update_material(current_user, material_id):
-    material = Material.query.get_or_404(material_id)
+    try:
+        # Получаем JSON данные
+        data = request.get_json()
+        
+        # Проверяем наличие обязательных полей
+        if not data or 'title' not in data or not data['title']:
+            return jsonify({'message': 'Название обязательно'}), 400
+        
+        material = Material.query.get_or_404(material_id)
+        
+        # Проверка прав доступа
+        if material.author_id != current_user.user_id and current_user.role != 'admin':
+            return jsonify({'message': 'Недостаточно прав для редактирования'}), 403
+        
+        # Обновляем материал
+        material.title = data['title']
+        material.content = data.get('content', material.content)
+        material.category = data.get('category', material.category)
+        
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Материал успешно обновлен',
+            'material_id': material.material_id
+        }), 200
     
-    if material.author_id != current_user.user_id and current_user.role != 'admin':
-        return jsonify({'message': 'You can only edit your own materials!'}), 403
-    
-    data = request.get_json()
-    
-    material.title = data.get('title', material.title)
-    material.content = data.get('content', material.content)
-    material.category = data.get('category', material.category)
-    material.file_url = data.get('file_url', material.file_url)
-    
-    db.session.commit()
-    
-    return jsonify({'message': 'Material updated!'}), 200
+    except Exception as e:
+        db.session.rollback()
+        print(f"Ошибка при обновлении: {str(e)}")
+        return jsonify({'message': f'Ошибка сервера: {str(e)}'}), 500
 
 @materials_bp.route('/materials/<int:material_id>', methods=['DELETE'])
 @token_required

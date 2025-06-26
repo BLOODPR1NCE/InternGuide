@@ -152,3 +152,39 @@
     color: var(--dark-gray);
     font-size: 0.9rem;
 }
+
+/* Progress Page */
+.progress-tabs {
+    margin: 30px 0 20px;
+}
+
+.progress-content {
+    min-height: calc(100vh - 400px);
+    padding-bottom: 50px;
+}
+
+.progress-item {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.progress-details {
+    flex-grow: 1;
+}
+
+/* Charts */
+.chart-container {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-top: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .progress-grid {
+        grid-template-columns: 1fr;
+    }
+}

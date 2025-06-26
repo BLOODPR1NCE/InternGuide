@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать материал | Intern Guide</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/materials.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Шапка, навигация и футер такие же, как в create.html -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://www.ph4.ru/DL/LOGO_ICON/i/ingosstrah.gif" alt="Ingosstrakh Logo">
+                <div class="logo-text">Intern <span>Guide</span></div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html">Главная</a></li>
+                    <li><a href="index.html" class="active">Материалы</a></li>
+                    <li><a href="../tests/index.html">Тесты</a></li>
+                    <li><a href="../progress/index.html">Прогресс</a></li>
+                    <li><a href="../dashboard.html">Профиль</a></li>
+                    <li><a href="#" id="logoutBtn">Выйти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../../index.html">Главная</a> / 
+            <a href="index.html">Материалы</a> / 
+            <span>Редактировать материал</span>
+        </div>
+        
+        <div class="material-form-container">
+            <div class="form-header">
+                <h1><i class="fas fa-edit"></i> Редактировать материал</h1>
+                <p>Измените необходимые поля материала и сохраните изменения</p>
+            </div>
+            
+    <form id="editMaterialForm" class="styled-form" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">
+            <i class="fas fa-heading"></i> Название материала
+            <span class="required">*</span>
+        </label>
+        <input type="text" id="title" name="title" placeholder="Введите название материала" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="category">
+            <i class="fas fa-tag"></i> Категория
+            <span class="required">*</span>
+        </label>
+        <div class="select-wrapper">
+            <select id="category" name="category" required>
+                <option value="">Выберите категорию</option>
+                <option value="О компании">О компании</option>
+                <option value="Корпоративная культура">Корпоративная культура</option>
+                <option value="Рабочие процессы">Рабочие процессы</option>
+                <option value="Продукты и услуги">Продукты и услуги</option>
+                <option value="Политики и процедуры">Политики и процедуры</option>
+            </select>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="content">
+            <i class="fas fa-align-left"></i> Содержание
+            <span class="required">*</span>
+        </label>
+        <textarea id="content" name="content" rows="10" placeholder="Добавьте содержание материала..." required></textarea>
+        <div class="editor-toolbar">
+            <button type="button" class="format-btn" data-command="bold"><i class="fas fa-bold"></i></button>
+            <button type="button" class="format-btn" data-command="italic"><i class="fas fa-italic"></i></button>
+            <button type="button" class="format-btn" data-command="insertUnorderedList"><i class="fas fa-list-ul"></i></button>
+            <button type="button" class="format-btn" data-command="insertOrderedList"><i class="fas fa-list-ol"></i></button>
+            <button type="button" class="format-btn" data-command="createLink"><i class="fas fa-link"></i></button>
+            <button type="button" class="format-btn" data-command="insertImage"><i class="fas fa-image"></i></button>
+        </div>
+    </div>
+
+    
+    <div class="form-actions">
+        <button type="button" class="btn btn-outline" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i> Отмена
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Сохранить изменения
+        </button>
+    </div>
+</form>
+        </div>
+    </main>
+
+    <!-- Футер как в create.html -->
+<footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>Intern Guide</h3>
+                    <p>Платформа для обучения и адаптации стажёров в компании Ингосстрах.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Разделы</h3>
+                    <ul>
+                        <li><a href="../../index.html">Главная</a></li>
+                        <li><a href="index.html">Материалы</a></li>
+                        <li><a href="../tests/index.html">Тесты</a></li>
+                        <li><a href="../progress/index.html">Прогресс</a></li>
+                        <li><a href="../dashboard.html">Профиль</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><a href="mailto:interns@ingos.ru"><i class="fas fa-envelope"></i> interns@ingos.ru</a></li>
+                        <li><a href="tel:+74951234567"><i class="fas fa-phone"></i> +7 (495) 123-45-67</a></li>
+                        <li><a href="https://maps.google.com/?q=Москва, ул. Покровка, 42" target="_blank"><i class="fas fa-map-marker-alt"></i> Москва, ул. Покровка, 42</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ингосстрах. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../assets/js/auth.js"></script>
+    <script src="../../assets/js/materials.js"></script>
+    <script src="../../assets/js/materialEditor.js"></script>
+</body>
+</html>

@@ -1,8 +1,15 @@
-const BASE_PATH = window.location.pathname.includes('/frontend/') ? '/frontend' : '';
-const API_URL = 'http://localhost:5000/api';
+// Исправленный BASE_PATH
+const BASE_PATH = window.location.pathname.startsWith('/frontend') 
+    ? '/frontend' 
+    : '';
+
+// Убедитесь, что API_URL соответствует вашему бэкенду
+const API_URL = 'http://localhost:5000/api'; // или другой порт, если изменили
+
+// Исправленные AUTH_PATHS
 const AUTH_PATHS = {
     login: `${BASE_PATH}/templates/auth/login.html`,
-    home: `${BASE_PATH}/index.html`
+    home: `${BASE_PATH}/templates/dashboard.html` // или другой главный путь
 };
 
 // Универсальная функция fetch с обработкой CORS
@@ -73,6 +80,53 @@ const Auth = {
         }
     },
 
+    async handleRegister(event) {
+        event.preventDefault();
+    
+        const name = document.getElementById('name').value;
+        const surname = document.getElementById('surname').value;
+        const login = document.getElementById('login').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert('Пароли не совпадают');
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_URL}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    name, 
+                    surname, 
+                    login, 
+                    password,
+                    role: 'trainee'
+                }),
+                credentials: 'include',
+                mode: 'cors'
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Ошибка регистрации');
+            }
+
+            alert('Регистрация успешна! Теперь вы можете войти.');
+            window.location.href = 'login.html';
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert(`Ошибка регистрации: ${error.message}`);
+        }
+    },
+
+
+
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -129,6 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => Auth.handleLogin(e));
+    }
+
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', (e) => Auth.handleRegister(e));
     }
     
     const logoutBtn = document.getElementById('logoutBtn');
